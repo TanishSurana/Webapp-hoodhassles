@@ -1,0 +1,586 @@
+body
+{
+    
+    background-image: url('bg5.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+ 
+    
+}
+
+nav
+{
+    background-color:rgba(115, 182, 238, 0.918);
+    background-color: rgb(158,169,183);
+}
+.navbar-brand
+{
+    font-size: 30px;
+}
+
+.complains
+{
+    margin: 0;
+    margin-bottom: 50px;
+}
+
+.complains .up
+{
+    text-align: center;
+}
+
+.up
+{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: gray;
+}
+
+.upvote
+{
+    border: 0;
+    background-color: white;
+}
+
+.upnum{
+    color: gray;
+}
+
+.row.complain
+{
+    padding: 0;
+    margin: 0;
+}
+
+.complaint
+{
+    padding: 20px 0;
+}
+
+.footer{
+    background-color: #303030;
+    color: #6C6C6C;
+    text-align: center;
+    font-size: small;
+    padding: 0;
+}
+
+
+footer a{
+    color: #6C6C6C;
+}
+
+.wrapper
+{
+    min-height: 100vh;
+}
+
+.footcontent
+{
+    padding: 20px;
+    margin: 20px 0px 20px;
+    min-height: 200%;
+}
+
+.liner
+{
+    border-right: 2px solid #3474DC;
+}
+
+.footerhead{
+    color: #9B9B9B;
+    font-size: large;   
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.footline
+{
+    background-color: white;
+    height: 20px;
+}
+
+.footer .container
+{
+    padding: 25px 0 ;
+}
+
+    
+.icon a{
+    font-size: x-large;
+    padding: 0px 20px 0;
+}
+
+.icon a:hover{
+    color: ivory;
+}
+
+.footnames div:hover
+{
+    font-size: large;
+    color: ivory;
+}
+
+.footcontact a:hover, .footcontact div:hover
+{
+    color: ivory;
+    font-size: 110%;   
+}
+
+.mynav
+{
+    text-align: center;
+    color: white;
+    padding: 5px;
+}
+
+.mynav a{
+    color: white;
+}
+
+
+
+.logo
+{
+    font-size: xx-large;
+    font-weight: 700;
+    text-align: left;
+    color: white;
+}
+
+.nlink
+{
+    margin-right: 40px;
+}
+
+.logs
+{
+    text-align: right;
+}
+
+.list-group
+{
+    opacity: 0;
+    animation: listload 0.5s forwards 1s ease-in;
+}
+
+@keyframes listload{
+    0%{
+        opacity: 0;
+        }
+    100%{
+        transform: rotate(xx);
+        opacity: 1;
+        }
+}
+
+.forum-nav{
+    margin: 0;
+    background-color: rgb(66, 85, 109);
+    color: black;
+    text-align: center;
+    opacity: 0;
+    animation: forum 0.5s forwards 0.5s linear;
+}
+
+@keyframes forum{
+    0%{
+        transform: translateY(-5%);
+        opacity: 0;
+        }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+        }
+}
+
+
+
+.forum-nav + .container
+{
+    opacity: 0;
+    animation: imageAni 1s forwards 0s ease-out;
+}
+
+@keyframes imageAni{
+    0%{
+        transform: rotate(0) translateX(-30%);
+        opacity: 0;
+        }
+    100%{
+        transform: rotate(0) translateX(0%);
+        opacity: 1;
+        }
+}
+
+.forum-element a{
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+}
+
+
+.stop-scrolling { 
+    height: 100%; 
+    overflow: hidden; 
+} 
+
+.comtitle
+{
+    font-size: large;
+    font-weight: 700;
+}
+
+.description
+{
+    color: rgb(44, 44, 44);
+    padding-right: 10px;
+    padding-bottom: 20px; 
+}
+
+.comuser
+{
+    color: rgb(78, 78, 78);
+    font-size: small    ;
+    font-weight: 400;
+
+}
+
+.ff
+{
+    margin-top: 10px;   
+}
+
+.tick
+{
+    color: green;
+    font-size: 20px;
+    padding-right: 10px;
+}
+
+.dt
+{
+    color: rgb(78, 78, 78);
+    font-size: smaller;
+    font-weight: bolder;
+}
+
+.selected{
+    background-color:rgb(45, 53, 63);
+}
+
+.forum-element:hover
+{
+    background-color: rgba(45, 53, 63, 0.836);
+}
+
+.forum-element{
+    padding: 0
+}
+
+.msel
+{
+    border-bottom: rgb(102, 168, 255);
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+
+.lag
+{
+    color: gray;
+    margin-right: 10px;
+    background-color: rgba(0,0,0,0);
+    border: none;
+}
+
+.ctitle
+{
+    font-weight: 500;
+    font-size: large;
+}
+
+.upvotes
+{
+    text-align: center;
+}
+
+.upvotes button
+{
+    background-color: white;
+    border: 0px;
+}
+
+.des
+{
+    font-size: small;
+    color: rgb(74, 72, 78);
+}
+
+.error{
+    color: tomato;
+    display: none;
+}
+
+.imghead
+{
+    margin-top: 40px;
+    height: 400px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 1px;
+    position: relative;
+
+}
+
+@media(max-width:1700px)
+{
+    .imghead
+    {
+
+        height: 300px;
+
+    }
+}
+
+.bb
+{
+    margin-top: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.bg-modal
+{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.bg-modal-r
+{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.bg-modal-n
+{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.list-group li
+{
+    padding: 30px;
+}
+
+@keyframes navbars{
+    0%{
+        transform: translateY(-40%);
+        opacity: 0;
+        }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+        }
+}
+
+header
+{
+    animation: navbars 0.5s forwards 0s linear;
+}
+@keyframes navbars{
+    0%{
+        transform: translateY(-40%);
+        opacity: 0;
+        }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+        }
+}
+
+
+.modal-card-header
+{
+    font-size: xx-large;
+    color: #333333;
+    background-color: #fafafa;
+    padding-left: 15px;
+    padding-bottom: 5px;
+    font-weight: 300;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.newc .form-group{
+    margin-bottom: 40px;
+}
+
+.modal-content
+{
+    max-width: 400px;
+    background-color: white;
+    border-radius: 5px;
+    text-align: left;
+    position: relative;
+}
+.close
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0 10 0 0;
+    font-size: 42px;    
+    font-weight: 100;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+
+.link-img   
+{
+    width: 100%;
+    bottom: 0;
+    font-size: 70px;
+    font-weight: 500;
+    color: white;
+    margin-top: 20px;
+    position: absolute;
+    bottom: 0;
+    padding-left: 15px;
+}
+
+.solved
+{
+    position: relative;
+}
+
+.solved i
+{
+    font-size: 25px;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+}
+
+/* for phones */
+@media(max-width:992px)
+{
+    .upvotes{
+        margin-bottom: 20px;
+    }
+
+    .complaint
+    {
+        padding: 0px;
+    }
+
+    .complaint > .row
+    {
+        margin: 10px 0;
+    }
+
+
+    .forum-nav
+    {
+        margin:  0;
+        width: auto;
+    }
+    .link-img
+    {
+        font-size: 50px;
+    }
+    
+    .footerhead
+    {
+        font-size: large;
+        margin: 5px;
+    }
+    .footcontent
+    {
+        margin: 0;
+        margin-bottom: 0px;
+        padding: 30px 10px;
+    }
+    .liner
+    {
+        border-right: 0px solid #3474DC;
+        border-bottom: 2px solid #3474DC;
+    }
+    .logo{
+        text-align: center;
+    }
+    .logs{
+        text-align: center;
+    }
+    .newc .form-group{
+        margin-bottom: 20px;
+    }
+    .col-lg-3.col-sm-12{
+        margin-top: 15px;
+    }
+    .content
+    {
+        padding-left: 30px;
+    }
+    
+ 
+}
+
+
+.myforms{
+    margin: 30px;
+    padding: 20px;
+}
+
+.post{
+    animation-name: deletes;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;  
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+
+}
+
+@keyframes deletes {
+    0% {
+        opacity: 1;
+        height: 100%;
+        line-height: 100%;
+        padding: 20px;
+        margin-bottom: 0px;
+    }
+    80% {
+        opacity: 0;
+        height: 100%;
+        line-height: 100%;
+        padding: 20px;
+        margin-bottom: 0px;
+    }
+    100% {
+        opacity: 0;
+        height: 0px;
+        line-height: 0px;
+        padding: 0px;
+        margin-bottom: 0px;
+    }
+}

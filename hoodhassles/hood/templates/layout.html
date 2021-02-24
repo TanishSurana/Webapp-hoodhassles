@@ -1,0 +1,291 @@
+{% load static %}
+
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta name='author' content="tanish">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>HoodHassles</title>
+</head>
+<body>
+    <div class="wrapper">
+
+    
+    <header>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'logogrlow.webp' %}" style='max-height: 35px;'>
+                <span style="display: inline-block; transform: translate(2px,3px);">
+                    HoodHassles
+                </span>
+            </a>
+            <!-- only thing taken from bootstrap -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item msel">
+                    <a class="nav-link" href="#">Forum <span class="sr-only">(current)</span></a>
+                </li>   
+                <li class="nav-item">
+
+                {% if user.is_authenticated %}
+                    <a class='nav-link' href='{% url "forum" "mycomplaints" %}'>My Complaints</a>
+                {% else %}
+                    <a class='nav-link' href='#' onclick='alert("login required")'>My Complaints</a>
+                {% endif %}  
+                </li>
+
+                <li class="nav-item">
+                {% if user.is_authenticated %}
+                    <a class='nav-link newcomplain' href='#'>New Complaint</a>
+                {% else %}
+                    <a class='nav-link' href='#' onclick='alert("login required")'>New Complaint</a>
+                {% endif %}  
+                    
+                
+      
+
+                </li>
+                </ul>
+
+                {% if user.is_authenticated %}
+                <span style='display: inline-block; font-size: large; padding-right: 10px'>Hi, {{ request.user.username }} |
+                    <a class="lag" href="{% url 'logout' %}" >Logout</a>
+                {% else %}
+                    <button class="lag blogin"> Login</button>
+                {% endif %}  
+            </div>
+        </nav>
+    </header>
+
+
+
+    <main>
+       
+        {% block forumnav %}
+        {% endblock %}
+
+
+ 
+
+
+        <div class="container">
+            <div class="imghead" style='background-image: url("/static/{{loc}}.jpg")'>
+                <div class="link-img">
+                    {{ loc|title }}
+                </div>
+            </div>
+        </div>
+                
+        <div class="container">
+            <div class="complains">
+            <ul class="list-group">
+
+            <!--calculate distance in django backend, select the complaints accordingly and render a page.-->
+
+            {% block show %}
+            {% endblock %}   
+            </ul>
+            
+        </div>
+        </div>
+        
+  
+
+
+   
+            
+        <div class="bg-modal">
+            <div class="modal-content">
+                <div class="close closelogin">+</div>
+                <div class="modal-card-header">
+                    Log in
+                </div>
+                <hr>
+                 <div class="card-body">
+                    <form action="{% url 'login' %}" method="POST" onsubmit="return checklogin();">
+                        {% csrf_token %}
+                        <div class="form-group">
+                          <label for="username">Username</label>
+                          <input type="text" name="username" class="form-control" id="lusername" placeholder="Enter Username" onkeyup="checkempty('#lusername','#emessage0', 'username')">
+                          <div id="emessage0" class="error"></div>
+                        </div>
+                        <div class="form-group">
+                          <label for="pass">Password</label>
+                          <input type="password" name="password" class="form-control" id="lpass" onkeyup='checkempty("#lpass","#emessage","password");' placeholder="Password">
+                          <div id="emessage" class="error"></div>
+                        </div>
+                        <input type="submit" class="btn btn-dark bb" value="Login">
+                        <h3 id="results"></h3>
+                      </form>
+                      <div style="text-align: center;">
+                        <a href="#" class="lr">Don't have an account? Sign up</a>
+                      </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="bg-modal-r">
+            <div class="modal-content">
+                <div class="close closereg">+</div>
+                <div class="modal-card-header">
+                    Register
+                </div>
+                <hr>
+                <div class="card-body">
+                    <form action="{% url 'register' %}" method="post" onsubmit="return checkreg()">
+                        {% csrf_token %}
+                        <div class="form-group">
+                          <label for="emailr">Email address</label>
+                          <input type="email" class="form-control" name="email" id="emailr" placeholder="Enter email" onkeyup="checkemail('#emailr','#ee')">
+                          <div id="ee" class="error"></div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="rusername">Username</label>
+                            <input type="text" class="form-control" name="username" id="rusername" placeholder="Enter Username" onkeyup="checkempty('#rusername','#eu','username')">
+                            <div id="eu" class='error'></div>
+                        </div>
+
+
+                        <div class="form-group">
+                          <label for="password">Password</label>
+                          <input type="password" class="form-control" name="password" id="password" placeholder="Password" onkeyup="checkpass('#password', '#ep')">
+                          <div class="error" id="ep"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cpassword">Confirm Password</label>
+                            <input type="password" class="form-control" name="cpassword" id="cpassword" placeholder="Password" onkeyup="checkpassmatch('#password','#cpassword','#ecp')">
+                            <div class="error" id="ecp"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark bb">Sign up</button>
+                      </form>
+
+                      <div style="text-align: center;">
+                        <a href="#" class="rl">Have an account? Log in</a>
+                      </div>
+                      
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="bg-modal-n">
+            <div class="modal-content">
+                <div class="close closenew">+</div>
+                <div class="modal-card-header">
+                    New complain
+                </div>
+                <hr>
+                <div class="card-body">
+                    <form action="{% url 'newcomplaint' %}" class='newc' method="post" enctype="multipart/form-data">                   
+                        {% csrf_token %}
+                        <div class="form-group">
+                          <label for="title">Title</label>
+                          <input type="text" required class="form-control" maxlength="64" name="title" id="title" placeholder="Enter a Title" onkeyup="">
+                          <div id="ee" class="error"></div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="description">Description</label>
+                          <textarea type="text" required class="form-control-file" name="content" id="content" placeholder="Describe your issue" rows="3" maxlength="600" onkeyup=""></textarea>
+                          <div id="ee" class="error"></div>
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="fileToUpload">Add an image(optional)</label>
+                            <input type="file" name="fileToUpload" id="fileToUpload">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="range">Select level of Complain</label>
+                            <select class="form-control" name="range" id='range'>
+                                <option  value="society">Society</option>
+                                <option value="neighborhood">Neighborhood</option>
+                                <option value="locality">Locality</option>  
+                                <option value="city">City</option>
+                            </select>
+                        </div>
+                    
+                        <div class="form-group">
+                            <input style='padding: 0 10px 0 0 ; margin: 0'  type="checkbox" value="" id="userloc" onclick="checkclick();">
+                            <label for="userloc">Check to enter location other than your default</label>
+                            <div class="row" id='locs' >
+                                <div class="col-12"><input class="form-control" required style='display: none' value='{{ lati }}' step="0.0000001" name="lati" id='lati' type="number" placeholder="Enter latitude (19.213508)" min='-180' max="180"></div><br><br>
+                                <div class="col-12"><input class="form-control" required style='display: none' value='{{ longi }}' step="0.0000001" name="longi" id='longi' type="number" placeholder="Enter longitude (72.874696)" min='-180' max="180"></div>
+                            </div>
+                        </div>
+
+
+
+                        <button type="submit" class="btn btn-dark bb">Post New Complaint</button>
+                      </form>
+                </div>
+            </div>
+        </div>
+
+                    
+    </main>
+    </div>
+    
+
+
+<script>
+
+</script>
+
+    <footer class='footer'>
+        <div class="container">
+            <div class="row" style="padding: 0; margin: 0">
+                <div class='footcontent col-lg-4 col-md-12 col-sm-12 liner'>
+                    <div class="footerhead">
+                        Contact Us
+                    </div>
+                    <div class='footcontact'>
+                        <a href="mailto:tanishsurana05@gmail.com">tanishsurana05@gmail.com</a>
+                    </div>     
+                </div>
+                <div class='footcontent  col-lg-4 col-md-12 col-sm-12 liner'>
+                    <div class='footerhead l'>
+                        Follow us on
+                    </div>
+                    <div class="icon">
+                        <a href="#" class="fa fa-facebook"></a>
+                        <a href="#" class="fa fa-twitter"></a>
+                        <a href="#" class="fa fa-instagram"></a>
+                    </div>
+                </div>
+                <div class='footcontent col-lg-4 col-md-12 col-sm-12'>
+                    <div class="footerhead">
+                        About us
+                    </div>
+                    <div class='footnames'>
+                
+
+                            <div>Tanish Surana</div>
+                      
+                    </div>
+                </div>
+        </div>
+        </div>
+
+    </footer>
+    <script src = "{% static 'index.js' %}"></script>
+</body>
+</html>

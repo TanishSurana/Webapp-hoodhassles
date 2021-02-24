@@ -1,0 +1,117 @@
+body{
+    background-image: url('bg5.jpg');
+    background-repeat: none;
+    background-position: top;
+    text-align: center;
+}
+
+body, html{
+    margin: 0;
+    padding: 0;
+}
+
+.home-head h1{
+    color: rgb(94, 94, 94);
+    font-weight: 300;
+}
+
+
+.getloc input{
+    margin: 10px 0;
+}
+
+.home-head
+{
+    font-size: 90px;
+    font-weight: 400;
+    color: black;
+    text-align: center;
+    margin: 100px 50px  0 50px;
+}
+
+.home-head h2{
+    font-weight: 400;
+    color: rgb(71, 66, 66);
+    font-style: italic;
+    font-size: 25px;
+}
+
+.q{
+    font-size: xx-large;
+    margin-top: 30px;
+}
+
+
+
+.getloc h1{
+    font-size: x-large ;
+    font-weight: 100;
+}
+
+.container{
+    opacity: 0;
+    animation: startanimation 0.5s forwards 0s linear;
+}
+
+
+@keyframes startanimation{
+    0%{
+        transform: translateY(-30%);
+        opacity: 0;
+        }
+    100%{
+        transform: translateY(0%);
+        opacity: 1;
+        }
+}
+
+.getloc
+{
+    margin-top: 150px;
+    opacity: 0;
+    animation: getlocani 0.5s forwards 0.5s linear;
+}
+
+@keyframes getlocani{
+    0%{
+        transform: rotate(0) translateX(-20%) translateY(0);
+        opacity: 0;
+        }
+    100%{
+        transform: rotate(0) translateX(0) translateY(0);
+        opacity: 1;
+        }
+}
+
+
+
+/* for phones */
+@media(max-width:992px){
+    .ll
+    {
+        width: 70%;
+        margin-left: 15%;
+    }
+    .home-head
+    {
+        font-size: xxx-large;
+    }
+    .home-head h1
+    {
+        font-size: large;
+    }
+    .home-head h2
+    {
+        font-size: large;
+    }
+    img
+    {
+        width: 20%;
+    }
+    .getloc
+    {
+        margin-top: 10x;
+    }
+
+
+}

@@ -1,0 +1,179 @@
+{% extends 'layout.html' %}
+
+{% block forumnav %}
+    <nav class="forum-nav stickynav">
+                
+        <div class="row" style="padding: 0; margin: 0;">
+            <div class="col-lg-3 col-sm-6 forum-element society" style="padding: 0; margin: 0;">
+                <a href="{% url 'forum' 'society' %}">Society</a>
+            </div>
+            <div class="col-lg-3 col-sm-6 forum-element neighborhood" style="padding: 0; margin: 0;">
+                <a href="{% url 'forum' 'neighborhood' %}">Neighborhood</a>
+            </div>
+            <div class="col-lg-3 col-sm-6 forum-element locality" style="padding: 0; margin: 0;">
+                <a href="{% url 'forum' 'locality' %}">Locality</a>
+            </div>
+            <div class="col-lg-3 col-sm-6 forum-element city" style="padding: 0; margin: 0;">
+                <a href="{% url 'forum' 'city' %}" style="padding: 0; margin: 0;">City</a>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        if ("{{ loc }}" != 'mycomplaints'){
+            document.querySelector('.{{ loc }}').className += ' selected';
+            console.log('working');
+        }
+
+    </script>
+    
+{% endblock %}
+
+
+{% block show %}
+    <script>
+        function upvote(cid, uid){
+            fetch(`upvote/${cid}/${uid}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.state);
+                if (data.state){
+                    alert('already upvoted!');
+                }
+                else{
+                    const votes = parseInt(document.getElementById(`${cid}`).innerHTML) + 1;
+                    document.getElementById(`${cid}`).innerHTML = votes;
+                }
+            
+            })
+        }
+
+
+        function solve(cid){
+            fetch(`solve/${cid}`)
+            .then(response => response.json())
+            .then(data => {
+                if(data.state){
+                    // putting a green tick
+                    document.getElementById(`tick${cid}`).innerHTML = "<i class='fa fa-check ' aria-hidden='true'></i>";
+                    // also remove the solve button
+                    document.getElementById(`solveb${cid}`).style.display = 'none'; 
+                    console.log(data.state);
+                }
+                else{
+                    alert('you are not the owner of this problem, or it has been already marked as solved.');
+                }
+            })
+        }
+
+        function deletes(cid){
+            fetch(`delete/${cid}`)
+            .then(response => response.json())
+            .then(data => {
+                if(data.state){
+                    document.getElementById(`complaint${cid}`).style.animationPlayState = 'running';
+                    console.log(data.state);
+                }
+                else{
+                    alert('you are not the owner of this problem, or it has been already deleted.');
+                }
+            })
+        }
+    </script>
+    
+    {% for litt in complaints %}
+    <li class='list-group-item post' id='complaint{{ litt.complaint.id }}'>
+        <div class='complaint '>
+            <div class='row'>
+                <div class='col-lg-1 upvotes'>    
+     
+                    <button onclick="upvote({{ litt.complaint.id }}, {{ request.user.id }})"><i class='fa fa-chevron-up'></i></button>
+                <div id="{{ litt.complaint.id }}">{{ litt.complaint.votes }}</div>
+            </div>
+
+
+                <div class='col-lg-8 col-sm-12 content'>
+                    <div class='row'>
+                        <div class='col-lg-9' style='padding: 0 0 20px 0;'>
+                            <div class='comtitle' style='word-wrap: break-word; display: inline;'>
+                                {{ litt.complaint.title }}
+                            </div>
+                            <span class='comuser'>
+                                by {{ litt.complaint.user }}
+                            </span>
+                        </div>
+
+                        <div class='col-lg-3'>
+                            <span style='float: right;'>
+                                {% if loc == 'mycomplaints' %}
+                    
+                                    <button class='btn' onclick="deletes({{ litt.complaint.id }})" style='font-size: smaller; padding: 4px; background-color:rgb(45, 53, 63); color: white; margin-right: 20px;'>Delete</button> 
+                               
+                                
+                                    {% if not litt.complaint.solved %}
+                                        <button class='btn' id='solveb{{ litt.complaint.id }}' onclick="solve({{ litt.complaint.id }});" style='font-size: smaller; padding: 4px;background-color:rgb(45, 53, 63); color: white;'>Solve</button>
+                                    {% endif %}
+                                
+                                {% endif %}
+                                                                                  
+                           
+                          </span>
+                        </div>
+
+                    </div>
+                    <div class='row'>
+                        <p class='description' >
+                            {{ litt.complaint.content }}
+                        </p>
+                    </div>
+
+                    <div class='row'>
+                        <div class='col-lg-9 dt' style='padding: 0; '>
+                            <span style='margin-right: 20px;'>
+                                Date: {{ litt.complaint.date }}
+                            </span>
+                            <br>
+                            <span class='comuser ff' style='padding-right: 30px;'>
+                            Location: {{ litt.complaint.lati }}, {{ litt.complaint.longi }}
+                            </span>
+                            <span class='comuser ff'>
+                                Distance: {{ litt.dist|stringformat:".2f" }}
+                            </span>
+            
+                        </div>
+                        <div class='col-lg-3'>
+                            <span class = 'tick'  id='tick{{ litt.complaint.id }}' style='float: right;'>
+                                {% if litt.complaint.solved %}
+                                    <i class='fa fa-check' aria-hidden='true'></i>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class='col-lg-3 col-sm-12'>
+                    {% if litt.complaint.image %}
+                    <figure>
+                        <img src = '{{ litt.complaint.image.url }}' alt='Complaint image' style='width:100%;'>
+                    </figure>
+                    {% else %}
+                        <div style='font-style: italic; color: gray;'>No Image.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </li>                       
+    {% endfor %}
+
+    {% if noc == 0 %}
+        {% if loc == 'mycomplaints' %}
+            <p>You haven't posted any complaints</p><br>
+        {% else %}
+            <p>No complaints in your range</p><br>
+        {% endif %}
+    {% endif %}
+    
+    
+
+{% endblock %}

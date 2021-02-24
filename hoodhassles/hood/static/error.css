@@ -1,0 +1,28 @@
+body{
+    background-image: url('bg5.jpg');
+    background-repeat: none;
+    background-position: top;
+    text-align: center;
+}
+body, html{
+    margin: 0;
+    padding: 0;
+}
+
+.home
+{
+    font-size: 50px;
+    font-weight: 400;
+    color: black;
+    text-align: center;
+    margin: 50px 50px  0 50px;
+}
+
+.home h2
+{
+    margin-top: 0px;
+    font-weight: 400;
+    color: rgb(71, 66, 66);
+    font-family: monospace;
+    font-size: 40px;
+}
